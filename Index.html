@@ -3,68 +3,593 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OnQuick App - UI Showcase</title>
+    <title>OnQuick - Payment Solution</title>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'primary': '#0B4189',
+              'secondary': '#031123',
+            }
+          }
+        }
+      }
+    </script>
 
     <!-- Swiper CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-  </head>
-  <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div class="w-full max-w-md md:max-w-xl bg-white rounded-2xl shadow-xl p-4">
-      <h2 class="text-center text-xl md:text-2xl font-bold mb-4 text-gray-800">
-        OnQuick App UI Screens
-      </h2>
+    
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
 
-      <!-- Swiper Carousel -->
-      <div class="swiper rounded-xl overflow-hidden">
-        <div class="swiper-wrapper">
-          <!-- Slides -->
-          <div class="swiper-slide">
-            <img src="images/welcome_page.png" alt="Welcome Page" class="w-full aspect-[3/5] object-contain" />
+    <style>
+      .gradient-bg {
+        background: linear-gradient(135deg, #031123 0%, #0B4189 100%);
+      }
+      .card-gradient {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      }
+      .swiper-slide-content {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        position: relative;
+        z-index: 10;
+      }
+      .tech-logo {
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.9);
+      }
+      .tech-logo:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(3, 17, 35, 0.2), 0 8px 10px -6px rgba(3, 17, 35, 0.1);
+        background: rgba(255, 255, 255, 1);
+      }
+      .project-logo {
+        filter: drop-shadow(0 4px 6px rgba(3, 17, 35, 0.1));
+      }
+      @media (max-width: 768px) {
+        .swiper-slide-content {
+          margin: -2rem -1rem;
+          padding: 2rem 1rem;
+          border-radius: 2rem 2rem 0 0;
+        }
+      }
+      .swiper-pagination-bullet {
+        background: #0B4189 !important;
+        opacity: 0.5;
+      }
+      .swiper-pagination-bullet-active {
+        opacity: 1;
+        background: #031123 !important;
+      }
+      .swiper-button-next,
+      .swiper-button-prev {
+        color: #0B4189 !important;
+        background: rgba(255, 255, 255, 0.3);
+        width: 3rem !important;
+        height: 3rem !important;
+        border-radius: 50%;
+        backdrop-filter: blur(4px);
+        z-index: 20;
+      }
+      .swiper-button-next {
+        right: 10px;
+      }
+      .swiper-button-prev {
+        left: 10px;
+      }
+      .swiper-button-next:after,
+      .swiper-button-prev:after {
+        font-size: 1.5rem !important;
+      }
+      @media (max-width: 640px) {
+        .swiper-button-next,
+        .swiper-button-prev {
+          display: none;
+        }
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        min-width: 220px;
+        box-shadow: 0 10px 15px -3px rgba(3, 17, 35, 0.1);
+        border-radius: 1rem;
+        z-index: 50;
+      }
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      .nav-link {
+        position: relative;
+      }
+      .nav-link:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: #0B4189;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+      .nav-link:hover:after {
+        transform: scaleX(1);
+      }
+    </style>
+  </head>
+  <body class="gradient-bg min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/95 backdrop-blur-md shadow-lg py-4 mb-8">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between">
+          <!-- Left side with logo -->
+          <div class="flex items-center">
+            <!-- Logo -->
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 project-logo">
+                <img src="images/onquick_logo.png" alt="OnQuick Logo" class="w-full h-full object-contain" />
+              </div>
+              <div>
+                <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  OnQuick
+                </h1>
+                <p class="text-primary font-medium text-sm md:text-base">Payment Solution</p>
+              </div>
+            </div>
           </div>
-          <div class="swiper-slide">
-            <img src="images/login_page.png" alt="Login Page" class="w-full aspect-[3/5] object-contain" />
+
+          <!-- Right side with buttons -->
+          <div class="hidden md:flex items-center gap-24">
+            <button onclick="document.getElementById('aboutModal').classList.remove('hidden')" 
+              class="group relative px-8 py-3 text-white bg-gradient-to-r from-primary to-secondary rounded-lg transition-all duration-300 text-lg font-semibold overflow-hidden shadow-md hover:shadow-xl">
+              <span class="relative z-10">About OnQuick</span>
+              <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left opacity-10"></div>
+            </button>
+            <button onclick="document.getElementById('developersModal').classList.remove('hidden')" 
+              class="group relative px-8 py-3 text-white bg-gradient-to-r from-primary to-secondary rounded-lg transition-all duration-300 text-lg font-semibold overflow-hidden shadow-md hover:shadow-xl">
+              <span class="relative z-10">Developers</span>
+              <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left opacity-10"></div>
+            </button>
           </div>
-          <div class="swiper-slide">
-            <img src="images/Home_page.png" alt="Home Page" class="w-full aspect-[3/5] object-contain" />
+
+          <!-- Mobile Menu Button -->
+          <button class="md:hidden text-gray-700 hover:text-primary">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Technology Stack Section -->
+    <section class="container mx-auto px-4 mb-12">
+      <div class="max-w-6xl mx-auto card-gradient rounded-3xl shadow-2xl p-6 md:p-8">
+        <h2 class="text-2xl md:text-3xl font-bold text-center text-primary mb-8">
+          Powered by Modern Technologies
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 items-center justify-items-center">
+          <!-- Flutter -->
+          <div class="tech-logo w-24 h-24 p-4 rounded-xl shadow-lg flex items-center justify-center">
+            <img src="images/flutter.png" alt="Flutter" class="w-full h-full object-contain" />
           </div>
-          <div class="swiper-slide">
-            <img src="images/payment_page1.png" alt="First Payment Page" class="w-full aspect-[3/5] object-contain" />
+          
+          <!-- Firebase -->
+          <div class="tech-logo w-24 h-24 p-4 rounded-xl shadow-lg flex items-center justify-center">
+            <img src="images/firebase.png" alt="Firebase" class="w-full h-full object-contain" />
           </div>
-          <div class="swiper-slide">
-            <img src="images/payment_page2.png" alt="Second Payment Page" class="w-full aspect-[3/5] object-contain" />
+          
+          <!-- Node.js -->
+          <div class="tech-logo w-24 h-24 p-4 rounded-xl shadow-lg flex items-center justify-center">
+            <img src="images/nodejs.png" alt="Node.js" class="w-full h-full object-contain" />
           </div>
-          <div class="swiper-slide">
-            <img src="images/completed_payment.png" alt="Completed Payment Page" class="w-full aspect-[3/5] object-contain" />
+          
+          <!-- Stripe -->
+          <div class="tech-logo w-24 h-24 p-4 rounded-xl shadow-lg flex items-center justify-center">
+            <img src="images/stripe.png" alt="Stripe" class="w-full h-full object-contain" />
           </div>
-          <div class="swiper-slide">
-            <img src="images/payment_history.png" alt="Payment History Page" class="w-full aspect-[3/5] object-contain" />
+          
+          <!-- Xcode -->
+          <div class="tech-logo w-24 h-24 p-4 rounded-xl shadow-lg flex items-center justify-center">
+            <img src="images/xcode.png" alt="Xcode" class="w-full h-full object-contain" />
           </div>
-          <div class="swiper-slide">
-            <img src="images/cards_page.png" alt="Cards Page" class="w-full aspect-[3/5] object-contain" />
-          </div>
-          <div class="swiper-slide">
-            <img src="images/add_card_page.png" alt="Add a Card Page" class="w-full aspect-[3/5] object-contain" />
-          </div>
-          <div class="swiper-slide">
-            <img src="images/addresses_page.png" alt="Addresses Page" class="w-full aspect-[3/5] object-contain" />
-          </div>
-          <div class="swiper-slide">
-            <img src="images/add_address_page.png" alt="Add an Address Page" class="w-full aspect-[3/5] object-contain" />
+          
+          <!-- Android Studio -->
+          <div class="tech-logo w-24 h-24 p-4 rounded-xl shadow-lg flex items-center justify-center">
+            <img src="images/android_studio.png" alt="Android Studio" class="w-full h-full object-contain" />
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Navigation Arrows -->
-        <div class="swiper-button-next text-gray-700"></div>
-        <div class="swiper-button-prev text-gray-700"></div>
+    <main class="container mx-auto px-4 pb-12">
+      <div class="max-w-6xl mx-auto card-gradient rounded-3xl shadow-2xl p-4 md:p-8">
+        <div class="mb-8 text-center">
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">
+            Mobile App Interface Tour
+          </h2>
+          <p class="text-gray-600">
+            Explore our intuitive and user-friendly mobile application screens
+          </p>
+        </div>
 
-        <!-- Pagination Dots -->
-        <div class="swiper-pagination"></div>
+        <!-- Swiper Carousel -->
+        <div class="swiper rounded-xl overflow-hidden">
+          <div class="swiper-wrapper">
+            <!-- Welcome Page -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Welcome Screen</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      A  welcome screen that introduces users to the OnQuick app's.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-door-open mr-2"></i>Welcome
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-mobile-alt mr-2"></i>App Intro
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/welcome_page.png" alt="Welcome Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Login Page -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Login Screen</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      Secure and simple login interface. Designed for both security and ease of use.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-shield-alt mr-2"></i>Security
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-user-lock mr-2"></i>Easy Access
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/login_page.png" alt="Login Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Home Page -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Home Dashboard</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      Central hub for accessing all app features and quick actions. Intuitive layout makes navigation effortless and puts everything at your fingertips.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-home mr-2"></i>Dashboard
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-compass mr-2"></i>Navigation
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/Home_page.png" alt="Home Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Page 1 -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Payment Setup</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      An easy-to-use interface for initiating payments, selecting payment methods, and choosing a delivery address.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-map-marker-alt mr-2"></i>Addresses
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-wallet mr-2"></i>Payment
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/payment_page1.png" alt="First Payment Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Page 2 -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Payment Details</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      Detailed payment information and confirmation screen mention verification here.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-check-circle mr-2"></i>Verification
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-info-circle mr-2"></i>Details
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/payment_page2.png" alt="Second Payment Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Completed Payment -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Payment Success</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      Clear confirmation of successful transactions with payment details.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-check-circle mr-2"></i>Success
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-dollar-sign mr-2"></i>Details
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/completed_payment.png" alt="Completed Payment Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment History -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Transaction History</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      Comprehensive view of past transactions.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-history mr-2"></i>History
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-receipt mr-2"></i>Transactions
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/payment_history.png" alt="Payment History Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Cards Page -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Saved Cards</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      Manage and view all saved payment cards securely.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-credit-card mr-2"></i>Cards
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-shield-alt mr-2"></i>Secure
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/cards_page.png" alt="Cards Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Add Card Page -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Add New Card</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      Simple and secure interface for adding new payment cards.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-credit-card mr-2"></i>Add Card
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-shield-alt mr-2"></i>Secure
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/add_card_page.png" alt="Add a Card Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Addresses Page -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Saved Addresses</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      View and manage your saved delivery addresses.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-map-marker-alt mr-2"></i>Addresses
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-shield-alt mr-2"></i>Secure
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/addresses_page.png" alt="Addresses Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Add Address Page -->
+            <div class="swiper-slide">
+              <div class="grid md:grid-cols-2 gap-4 md:gap-8 items-center p-4 md:p-6">
+                <div class="order-2 md:order-1">
+                  <div class="swiper-slide-content p-6 md:p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl md:text-2xl font-bold text-primary mb-4">Add New Address</h3>
+                    <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-6">
+                      User-friendly form for adding and saving new addresses.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-plus mr-2"></i>Add Address
+                      </span>
+                      <span class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-medium">
+                        <i class="fas fa-map-marker-alt mr-2"></i>Location
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-1 md:order-2">
+                  <img src="images/add_address_page.png" alt="Add an Address Page" class="w-full aspect-[3/5] object-contain rounded-2xl shadow-xl" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+
+          <!-- Pagination Dots -->
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-secondary/10 backdrop-blur-md py-8 mt-8 md:mt-12">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col items-center space-y-8">
+          <!-- Social Links -->
+          <div class="flex items-center gap-12">
+            <a href="https://github.com/sulAlajmi/sulAlajmi" target="_blank" class="flex items-center gap-2 px-6 py-3 bg-white/90 rounded-lg shadow-md hover:shadow-lg transition-all group">
+              <i class="fab fa-github text-3xl text-primary group-hover:scale-110 transition-transform"></i>
+              <span class="text-gray-700 font-medium">GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/sultan-s-alajmi03/" target="_blank" class="flex items-center gap-2 px-6 py-3 bg-white/90 rounded-lg shadow-md hover:shadow-lg transition-all group">
+              <i class="fab fa-linkedin text-3xl text-primary group-hover:scale-110 transition-transform"></i>
+              <span class="text-gray-700 font-medium">LinkedIn</span>
+            </a>
+            <a href="mailto:s.binsalman3@gmail.com" class="flex items-center gap-2 px-6 py-3 bg-white/90 rounded-lg shadow-md hover:shadow-lg transition-all group">
+              <i class="fas fa-envelope text-3xl text-primary group-hover:scale-110 transition-transform"></i>
+              <span class="text-gray-700 font-medium">Email</span>
+            </a>
+          </div>
+          
+          <!-- Rights -->
+          <div class="text-center">
+            <p class="text-gray-600 font-medium mb-2">
+              OnQuick App UI Showcase © 2024 All Rights Reserved
+            </p>
+            <p class="text-gray-500">
+              Developed by Sultan Alajmi
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative">
+        <button onclick="document.getElementById('aboutModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+        <h2 class="text-2xl font-bold text-primary mb-4">About OnQuick</h2>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          The OnQuick project offers an innovative solution to improve the online shopping experience by streamlining the payment process to reduce cart abandonment. Traditional checkout methods, which require users to repeatedly enter detailed payment and personal information, often frustrate shoppers and result in incomplete transactions.
+        </p>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="text-center p-4 bg-gray-50 rounded-lg">
+            <i class="fas fa-shield-alt text-2xl text-primary mb-2"></i>
+            <h3 class="font-semibold text-xl">SECURE</h3>
+          </div>
+          <div class="text-center p-4 bg-gray-50 rounded-lg">
+            <i class="fas fa-bolt text-2xl text-primary mb-2"></i>
+            <h3 class="font-semibold text-xl">FAST</h3>
+          </div>
+          <div class="text-center p-4 bg-gray-50 rounded-lg">
+            <i class="fas fa-smile text-2xl text-primary mb-2"></i>
+            <h3 class="font-semibold text-xl">USER FRIENDLY</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Developers Modal -->
+    <div id="developersModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-2xl w-full p-6 relative">
+        <button onclick="document.getElementById('developersModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+        <h2 class="text-2xl font-bold text-primary mb-6">Development Team</h2>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="p-6 bg-gray-50 rounded-lg">
+            <ul class="text-gray-700 space-y-6">
+              <li class="text-xl font-semibold text-primary hover:text-opacity-90 transition-colors text-center">Sultan Alajmi</li>
+              <li class="text-xl font-semibold text-primary hover:text-opacity-90 transition-colors text-center">Azzam Alquraini</li>
+              <li class="text-xl font-semibold text-primary hover:text-opacity-90 transition-colors text-center">Rayan Almujalli</li>
+              <li class="text-xl font-semibold text-primary hover:text-opacity-90 transition-colors text-center">Marei Alshamlani</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -75,6 +600,18 @@
     <script>
       const swiper = new Swiper(".swiper", {
         loop: true,
+        effect: "creative",
+        creativeEffect: {
+          prev: {
+            translate: ["-20%", 0, -200],
+            opacity: 0,
+          },
+          next: {
+            translate: ["100%", 0, 0],
+            opacity: 0,
+          },
+        },
+        speed: 1000,
         pagination: {
           el: ".swiper-pagination",
           clickable: true,
@@ -83,6 +620,20 @@
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         },
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
+        breakpoints: {
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 20
+          },
+          768: {
+            slidesPerView: 1,
+            spaceBetween: 30
+          }
+        }
       });
     </script>
   </body>
