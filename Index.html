@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OnQuick App - UI Showcase</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-md md:max-w-xl bg-white rounded-2xl shadow-xl p-4">
+      <h2 class="text-center text-xl md:text-2xl font-bold mb-4 text-gray-800">
+        OnQuick App UI Screens
+      </h2>
+
+      <!-- Swiper Carousel -->
+      <div class="swiper rounded-xl overflow-hidden">
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide">
+            <img src="images/welcome_page.png" alt="Welcome Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/login_page.png" alt="Login Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/Home_page.png" alt="Home Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/payment_page1.png" alt="First Payment Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/payment_page2.png" alt="Second Payment Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/completed_payment.png" alt="Completed Payment Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/payment_history.png" alt="Payment History Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/cards_page.png" alt="Cards Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/add_card_page.png" alt="Add a Card Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/addresses_page.png" alt="Addresses Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+          <div class="swiper-slide">
+            <img src="images/add_address_page.png" alt="Add an Address Page" class="w-full aspect-[3/5] object-contain" />
+          </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="swiper-button-next text-gray-700"></div>
+        <div class="swiper-button-prev text-gray-700"></div>
+
+        <!-- Pagination Dots -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      const swiper = new Swiper(".swiper", {
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+  </body>
+</html>
