@@ -166,7 +166,7 @@
           </div>
 
           <!-- Mobile Menu Button -->
-          <button class="md:hidden text-gray-700 hover:text-primary">
+          <button onclick="toggleMobileMenu()" class="md:hidden text-gray-700 hover:text-primary">
             <i class="fas fa-bars text-2xl"></i>
           </button>
         </div>
@@ -647,6 +647,83 @@
             slidesPerView: 1,
             spaceBetween: 30
           }
+        }
+      });
+    </script>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+      <div class="bg-white h-full w-72 p-6 transform transition-transform duration-300 translate-x-full fixed right-0 shadow-2xl" id="mobileMenuContent">
+        <!-- Logo and Close Section -->
+        <div class="flex items-center justify-between mb-8 pb-6 border-b border-gray-200">
+          <div class="flex items-center gap-3">
+            <img src="images/onquick_logo.png" alt="OnQuick Logo" class="w-10 h-10 object-contain" />
+            <span class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              OnQuick
+            </span>
+          </div>
+          <button onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-700 w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="space-y-2">
+          <button onclick="document.getElementById('aboutModal').classList.remove('hidden'); toggleMobileMenu();" 
+            class="w-full group flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gradient-to-r from-primary/5 to-secondary/5 rounded-xl transition-all duration-200">
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all">
+              <i class="fas fa-info-circle text-lg"></i>
+            </div>
+            <span class="font-medium">About OnQuick</span>
+          </button>
+
+          <button onclick="document.getElementById('developersModal').classList.remove('hidden'); toggleMobileMenu();" 
+            class="w-full group flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gradient-to-r from-primary/5 to-secondary/5 rounded-xl transition-all duration-200">
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all">
+              <i class="fas fa-users text-lg"></i>
+            </div>
+            <span class="font-medium">Developers</span>
+          </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="absolute bottom-8 left-6 right-6">
+          <div class="p-4 rounded-xl bg-gradient-to-r from-primary/5 to-secondary/5">
+            <p class="text-sm text-gray-600 text-center">
+              OnQuick App UI Showcase<br>© 2025 All Rights Reserved
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Script -->
+    <script>
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuContent = document.getElementById('mobileMenuContent');
+        
+        if (mobileMenu.classList.contains('hidden')) {
+          // Open menu
+          mobileMenu.classList.remove('hidden');
+          setTimeout(() => {
+            menuContent.classList.add('translate-x-0');
+            menuContent.classList.remove('translate-x-full');
+          }, 10);
+        } else {
+          // Close menu
+          menuContent.classList.add('translate-x-full');
+          menuContent.classList.remove('translate-x-0');
+          setTimeout(() => {
+            mobileMenu.classList.add('hidden');
+          }, 300);
+        }
+      }
+
+      // Close mobile menu when clicking outside
+      document.getElementById('mobileMenu').addEventListener('click', function(e) {
+        if (e.target === this) {
+          toggleMobileMenu();
         }
       });
     </script>
